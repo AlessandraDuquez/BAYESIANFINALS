@@ -1,0 +1,27 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+num_emails_with_word = 1000
+num_spam_with_word = 850
+
+prior_alpha = 1
+prior_beta = 1
+
+posterior_alpha = prior_alpha + num_spam_with_word
+posterior_beta = prior_beta + (num_emails_with_word - num_spam_with_word)
+
+posterior_samples = np.random.beta(posterior_alpha, posterior_beta, size=10000)
+
+plt.figure(figsize=(8, 6))
+plt.hist(posterior_samples, bins=30, density=True, color='pink', edgecolor='black', alpha=0.7)
+plt.title('Probability of Spam Given "Free" Appears')
+plt.xlabel('P(Spam | "Free")')
+plt.ylabel('Density')
+plt.xlim(0.7, 0.95)
+plt.show()
+
+mean_prob_spam = posterior_alpha / (posterior_alpha + posterior_beta)
+mode_prob_spam = (posterior_alpha - 1) / (posterior_alpha + posterior_beta - 2)
+
+print("Mean P(Spam | 'Free'):", mean_prob_spam)
+print("Mode P(Spam | 'Free'):", mode_prob_spam)
