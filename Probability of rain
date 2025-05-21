@@ -1,0 +1,25 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+prior_alpha = 5
+prior_beta = 7
+
+observed_rainy_days = 76
+observed_total_days = 200
+
+posterior_alpha = prior_alpha + observed_rainy_days
+posterior_beta = prior_beta + (observed_total_days - observed_rainy_days)
+
+posterior_samples = np.random.beta(posterior_alpha, posterior_beta, 10000)
+
+plt.hist(posterior_samples, bins=30, density=True, color='pink', edgecolor='black')
+plt.title("Probability of Rain Given Current Conditions")
+plt.xlabel("P(Rain | Conditions)")
+plt.ylabel("Density")
+plt.axvline(0.5, color='pink', linestyle='--', label="50% Reference")
+plt.legend()
+plt.show()
+
+mean_prob_rain = np.mean(posterior_samples)
+print(f"Estimated probability of rain: {mean_prob_rain:.2f}")
+print("P(Rain > 0.6):", np.mean(posterior_samples > 0.6))
