@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 
-P_in_database = 1 / 10000     
+P_in_database = 1 / 10000
 P_not_in_database = 1 - P_in_database
 
-P_match_given_in_database = 0.99   
-P_match_given_not_in_database = 0.01  
+P_match_given_in_database = 0.99
+P_match_given_not_in_database = 0.01
 
 numerator = P_match_given_in_database * P_in_database
 denominator = (
@@ -15,18 +15,19 @@ denominator = (
 P_in_database_given_match = numerator / denominator
 P_not_in_database_given_match = 1 - P_in_database_given_match
 
-print(f"Probability the person IS in the database given a match: {P_in_database_given_match:.5f}")
-print(f"Probability the person is NOT in the database given a match: {P_not_in_database_given_match:.5f}")
+print(f"Probability the person IS in the database: {P_in_database_given_match:.5f}")
+print(f"Probability the person is NOT in the database: {P_not_in_database_given_match:.5f}")
 
 labels = ['In Database', 'Not in Database']
 probs = [P_in_database_given_match, P_not_in_database_given_match]
-colors = ['green', 'red']
+colors = ['pink', 'black']
 
-plt.figure(figsize=(8, 5))
+plt.figure(figsize=(7, 4))
 plt.bar(labels, probs, color=colors)
-plt.title('Posterior Probability Given a Match')
+plt.title('Probability of a Match')
 plt.ylabel('Probability')
 plt.ylim(0, 1)
 for i, v in enumerate(probs):
     plt.text(i, v + 0.02, f"{v:.4f}", ha='center', fontweight='bold')
 plt.show()
+
